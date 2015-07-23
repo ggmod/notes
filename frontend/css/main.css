@@ -1,0 +1,96 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+#notelist-container {
+	position: fixed;
+	left: 0;
+	top: 50px;
+	height: 100%;
+	width: 250px;
+	overflow-y: auto;
+	background-color: rgb(247, 247, 247);
+	border: 1px solid rgb(210, 210, 210);
+}
+#notelist-toppanel {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid rgb(178, 178, 178);
+}
+#note-preview-container {
+	position: fixed;
+	top: 50px;
+	left: 250px;
+}
+#notelist-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#notelist-list li {
+	font-size: 12px;
+	min-height: 35px;
+	padding: 4px;
+	cursor: pointer;
+	border-bottom: 1px solid rgb(210, 210, 210);
+}
+#notelist-list li.selected,
+#notelist-list li:hover {
+	background-color: rgb(224, 224, 224);
+}
+iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+#note-button-container {
+	display: inline-block;
+	margin-left: 20px;
+}
+.note-button {
+	color: gray;
+	font-size: 12px;
+	border: 1px solid rgb(199, 199, 199);
+	border-radius: 4px;
+	padding: 4px;
+	background-color: rgb(249, 249, 249);
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+	margin-left: 10px;
+}
+.note-button:hover {
+	background-color: white;
+}
+.note-size {
+	font-size: 10px;
+	font-weight: bold;
+	color: rgb(137, 137, 137);
+	float: right;
+}
+.note-mtime {
+	font-weight: bold;
+	font-size: 10px;
+	color: rgb(78, 161, 255);
+	padding: 0 5px;
+	float: right;
+}
+#note-filter-input {
+	margin: 12px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.17);
+	border: 1px solid rgb(223, 223, 223);
+	height: 18px;
+	color: gray;
+	padding: 3px;
+	width: 220px;
+}
+#note-filter-counter {
+	color: gray;
+	font-size: 12px;
+	width: 90px;
+	display: inline-block;
+}

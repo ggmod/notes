@@ -1,0 +1,7 @@
+{
+	"PORT": 3666,
+	"NOTES_PATH": "/home/gmod/projects/notes/code/content",
+	"NOTES_BACKUP_PATH": "/home/gmod/projects/notes/code/content_backup",
+	"NOTES_BACKUP_FILE_COUNT": 5,
+	"NOTES_BACKUP_ZIPPED_PATH": "/home/gmod/projects/notes/code/content_backup_zipped"
+}

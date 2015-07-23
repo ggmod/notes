@@ -1,0 +1,11 @@
+{
+    "name": "notes-app",
+    "description": "custom note taking application",
+    "version": "0.0.1",
+    "dependencies": {
+      "express": "4.2.x",
+      "body-parser": "1.12.x",
+      "cron": "1.0.x",
+      "easy-zip": "0.0.4"
+    }
+}

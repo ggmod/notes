@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/editor.css"></link>
+    <script type="text/javascript" src="js-lib/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="js-lib/highlight.js"></script>
+    <script type="text/javascript" src="js/color.js"></script>
+    <script type="text/javascript" src="editor.js"></script>
+  </head>
+  <body>
+    <div id="editor-message" style="display:none"></div>
+  	<div id="editor-controls">
+  		<div id="editor-overlays">
+  			<span id="editor-overlays-cover"></span>
+  			<span id="editable-toggle"></span>
+  			<span id="save-button" style="display: none"></span>
+  			<span id="insert-buttons" style="display:none">
+  				<span id="insert-image" class="insert-button"></span>
+  				<span id="insert-table" class="insert-button"></span>
+  				<span id="insert-list1" class="insert-button"></span>
+  				<span id="insert-list2" class="insert-button"></span>
+  			</span>
+  		</div>
+  		<div id="editor-contextmenu">
+  			<div class="contextmenu-item">
+  				<span class="contextmenu-label">Font size: </span><select id="font-size-input" class="contextmenu-focus"></select>
+  			</div>
+  			<div class="contextmenu-item">
+  				<span class="contextmenu-label">Heading: </span><select id="heading-input" class="contextmenu-focus"></select>
+  			</div>
+  			<div class="contextmenu-item">
+  				<span class="contextmenu-label">Color: </span><select id="color-input" class="contextmenu-focus"></select>
+  			</div>
+  			<div class="contextmenu-item">
+  				<span class="contextmenu-label">Highlight: </span><select id="highlight-input" class="contextmenu-focus"></select>
+  			</div>
+  			<div class="contextmenu-item">
+  				<button id="clearformat-button" class="contextmenu-focus">Clear formatting</button>
+  			</div>
+  		</div>
+  		<div id="editor-dialog-container" style="display:none">
+  			<div id="editor-dialog-cover"></div>
+  			<div id="editor-dialog">
+  				<div id="editor-dialog-header">
+  					<span id="editor-dialog-header-text">Title</span>
+  					<span id="editor-dialog-header-x">×</span>
+  				</div>
+  				<div id="editor-dialog-content">
+  					<div id="editor-dialog-image">
+  						<div class="editor-dialog-row">
+							<span class="editor-dialog-label">src:</span>
+							<input id="editor-dialog-image-src" type="text"/>
+						</div>
+						<div class="editor-dialog-row">
+  							<span class="editor-dialog-label">size (px):</span>
+							<input id="editor-dialog-image-width" type="text" style="width: 40px"/>
+  							x
+  							<input id="editor-dialog-image-height" type="text" style="width: 40px"/>
+						</div>
+						<div class="editor-dialog-row">
+  							<span class="editor-dialog-label">align:</span>
+							<select id="editor-dialog-image-align">
+								 <option value="block">block</option>
+								 <option value="inline">inline</option>
+								 <option value="left">left</option>
+								 <option value="right">right</option>
+							</select>
+						</div>
+  					</div>
+  					<div id="editor-dialog-table">
+  						<div class="editor-dialog-row">
+  							<span class="editor-dialog-label">columns:</span>
+  							<input id="editor-dialog-table-columns" type="text"/>
+  						</div>
+  						<div class="editor-dialog-row">
+    							<span class="editor-dialog-label">rows:</span>
+  							<input id="editor-dialog-table-rows" type="text"/>
+  						</div>
+  						<div class="editor-dialog-row">
+    							<span class="editor-dialog-label">header:</span>
+  							<input id="editor-dialog-table-header" type="checkbox"/>
+  						</div>
+  					</div>
+            <div id="editor-dialog-notetitle">
+              <div class="editor-dialog-row">
+                <span class="editor-dialog-label">Title:</span>
+                <input id="editor-dialog-notetitle-title" type="text"/>
+              </div>
+            </div>
+  				</div>
+  				<div id="editor-dialog-buttons">
+  					<button id="editor-dialog-submit" class="editor-dialog-button">OK</button>
+  					<button id="editor-dialog-cancel" class="editor-dialog-button">Cancel</button>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<div id="main-content">
+  		<iframe id="main-content-iframe"></iframe>
+  	</div>
+  </body>
+</html>

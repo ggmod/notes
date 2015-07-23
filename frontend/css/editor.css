@@ -1,0 +1,243 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+#main-content {
+	position:fixed;
+	width: 100%;
+	height: 100%;
+	/*font-size: 12px;
+	font-family: sans-serif;
+	color: #3D3D3D;  always use hex for this 
+	padding: 10px;
+	line-height: 1.3;*/
+}
+.tab {
+	white-space: pre;
+}
+#main-content-iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	margin: 0;
+}
+
+/* top-right cornet buttons: */ 
+
+#editor-overlays-cover {
+	/*border: 1px solid red;*/
+	width: 170px;
+	height: 100px;
+	top: 0;
+	right: 0;
+	position: fixed;
+}
+
+#editor-controls {
+	position: fixed;
+	z-index: 99;
+}
+#editable-toggle {
+	position: fixed;
+	top: 5px;
+	right: 20px;
+	background-image: url("../img/edit-icon.png");
+	background-color: rgb(240, 240, 240);
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	box-shadow: 0 0 5px black;
+	border-radius: 4px;
+}
+#editable-toggle:hover {
+	background-color: white;
+}
+#editable-toggle.off {
+	opacity: 0.4;
+}
+#editable-toggle.on {
+	opacity: 1;
+}
+#save-button {
+	position: fixed;
+	top: 5px;
+	right: 52px;
+	background-image: url("../img/save-icon.png");
+	background-color: rgb(240, 240, 240);
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	box-shadow: 0 0 5px black;
+	border-radius: 4px;
+}
+#save-button:hover {
+	background-color: white;
+}
+.insert-button {
+	position: fixed;
+	background-color: rgb(240, 240, 240);
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	border-radius: 4px;
+	top: 40px;
+	background-size: 25px 25px;	
+}
+.insert-button:hover {
+	background-color: white;
+}
+#insert-image {
+	right: 116px;
+	background-image: url("../img/insert-image.png");
+}
+#insert-table {
+	right: 84px;
+	background-image: url("../img/insert-table.png");	
+}
+#insert-list1 {
+	right: 52px;
+	background-image: url("../img/insert-list1.gif");	
+}
+#insert-list2 {
+	right: 20px;
+	background-image: url("../img/insert-list2.gif");	
+}
+
+/* context menu */
+
+#editor-contextmenu {
+	position: fixed;
+	display: none;
+	background-color: rgba(250, 250, 250, 1);
+	box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+	font-size: 11px;
+	padding: 3px;
+	color: rgb(65, 65, 65);
+}
+.contextmenu-item select {
+	width: 55px;
+	margin: 2px;
+	background-color: white;
+	color: rgb(74, 74, 74);
+}
+.contextmenu-label {
+	width: 60px;
+	display: inline-block;
+}
+#clearformat-button {
+	text-align: center;
+	margin: auto;
+	display: block;
+	background-color: rgb(224, 224, 224);
+	border: 1px solid rgb(199, 199, 199);
+	color: rgb(100, 100, 100);
+	border-radius: 2px;
+	font-size: 12px;
+	line-height: 1.5;
+	margin-top: 3px;
+	cursor:pointer;
+}
+#clearformat-button:hover {
+	background-color: rgb(236, 236, 236);
+}
+
+/* editor dialog */
+
+#editor-dialog-cover {
+	background-color: rgba(0,0,0,0.3);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+}
+#editor-dialog {
+	text-align: left;
+	width: 300px;
+	height: 200px;
+	background-color: white;
+	color: rgb(73, 73, 73);
+	font-size: 13px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.53);
+	border: 1px solid gray;
+	position: fixed;
+	z-index: 101;
+}
+#editor-dialog-header {
+	background-color: rgb(237, 237, 237);
+	padding: 10px;
+	font-size: 14px;
+	border-bottom: 1px solid rgb(199, 199, 199);
+	border-radius: 3px 3px 0 0;
+}
+#editor-dialog-header-x {
+	float: right;
+	color: rgb(173, 173, 173);
+	cursor: pointer;
+	font-weight: bold;
+}
+#editor-dialog-header-x:hover {
+	color: rgb(130, 130, 130);
+}
+#editor-dialog-content {
+	padding: 10px;
+}
+#editor-dialog-buttons {
+	padding: 0 30px 0 30px;
+	text-align: right;
+	margin-top: 10px;
+}
+.editor-dialog-button {
+	border: 1px solid rgb(195, 195, 195);
+	padding: 5px 15px 5px 15px;
+	border-radius: 3px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);
+	background-color: rgb(234, 234, 234);
+	margin-right: 10px;
+	cursor: pointer;
+}
+.editor-dialog-button:hover {
+	background-color: rgb(250, 250, 250);
+}
+.editor-dialog-row {
+	margin-bottom: 7px;
+}
+.editor-dialog-label {
+	width: 100px;
+	display: inline-block;
+}
+.editor-dialog-row input {
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+	border: 1px solid rgb(190, 190, 190);
+	color: rgb(110, 110, 110);
+	padding: 3px;
+}
+.editor-dialog-row select {
+	color: rgb(82, 82, 82);
+	padding: 2px;
+}
+
+#editor-message {
+	position: fixed;
+	top: 5px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.87);
+	border-radius: 5px;
+	font-size: 12px;
+	border-width: 1px;
+	border-style: solid;
+	padding: 2px 10px;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.29);
+	color: gray;
+	z-index: 100;
+	left: 0;
+	right: 0;
+	margin: 0 30%;
+}
+#editor-message.error {
+	border-color: red;
+}
+#editor-message.info {
+	border-color: rgb(111, 200, 255);
+}
