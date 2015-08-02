@@ -56,7 +56,7 @@ exports.getBackupPath = function(note_id, backup_index) {
 exports.queryAll = function() {
 	var fileNames = fs.readdirSync(config.NOTES_PATH)
 		.filter(function(file_name) {
-			return utils.endsWith(file_name, ".html");
+			return utils.endsWith(file_name, '.html');
 		});
 	return fileNames2Metadata(fileNames, config.NOTES_PATH);
 };
@@ -83,7 +83,7 @@ exports.queryByRegex = function(regexFilter, ignoreCase) {
 exports.queryBackups = function(note_id) {
 	var fileNames = fs.readdirSync(config.NOTES_BACKUP_PATH)
 		.filter(function(file_name) {
-			return utils.endsWith(file_name, ".html") && utils.startsWith(file_name, note_id + '__');
+			return utils.endsWith(file_name, '.html') && utils.startsWith(file_name, note_id + '__');
 		});
 	return fileNames2Metadata(fileNames, config.NOTES_BACKUP_PATH);
 };

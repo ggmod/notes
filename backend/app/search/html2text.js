@@ -8,7 +8,7 @@ var html5namedCharacters = require('./named_refs.json');
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements incomplete list:
 var newLineTags = [ 'br', 'div', 'p', 'body', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'form', 'table', 'ul', 'ol', 'pre', 'video', 'audio', 'canvas', 'blockquote'];
 
-isNewLineTag = {};
+var isNewLineTag = {};
 newLineTags.forEach(function(tag) {
 	isNewLineTag[tag] = true;
 });

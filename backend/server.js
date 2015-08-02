@@ -2,7 +2,9 @@ var express = require('express');
 var notesAPI = require('./app/notes-api.js');
 var config = require('./config.json');
 var bodyParser = require('body-parser');
-var cronJobs = require('./app/cron-jobs.js'); // triggers the schedulers
+var cronJobs = require('./app/cron-jobs.js');
+
+cronJobs.start();
 
 var app = express();
 var router = express.Router();
@@ -25,6 +27,6 @@ app.get('/', function(req, res) {
 	res.sendfile('../frontend/index.html');
 });
 
-var server = app.listen(config.PORT, function() {
+app.listen(config.PORT, function() {
 	console.log('Notes app is listening to http://localhost:' + config.PORT);
 });

@@ -3,7 +3,7 @@ var noteService = require('./notes-service.js');
 module.exports = function (router) {
 	
 	router.route('/notes')
-		.get(function(req, res, next) {
+		.get(function(req, res) {
 			if (req.query.textFilter) {
 				res.send(noteService.queryByText(req.query.textFilter, req.query.ignoreCase === 'true'));
 			} else if (req.query.regexFilter) {
@@ -38,4 +38,4 @@ module.exports = function (router) {
 		.get(function(req, res) {
 			res.sendfile(noteService.getBackupPath(req.params.note_id, req.params.backup_index));
 		});
-}
+};
