@@ -61,22 +61,24 @@ exports.queryAll = function() {
 	return fileNames2Metadata(fileNames, config.NOTES_PATH);
 };
 
-exports.queryByTitle = function(titleFilter) {
-	titleFilter = titleFilter.trim().toUpperCase();
-	var fileNames = fs.readdirSync(config.NOTES_PATH)
-		.filter(function(file_name) {
+exports.queryByFilter = function(filterConfig) {
+	var fileNames = fs.readdirSync(config.NOTES_PATH);
+
+	fileNames = fileNames.filter(function(file_name) {
+			return utils.endsWith(file_name, '.html');
+		});
+
+	if (filterConfig.titleFilter) {
+		var titleFilter = filterConfig.titleFilter.trim().toUpperCase();
+
+		fileNames = fileNames.filter(function(file_name) {
 			return file_name.toUpperCase().indexOf(titleFilter) >= 0;
 		});
-	return fileNames2Metadata(fileNames, config.NOTES_PATH);
-};
+	}
 
-exports.queryByText = function(textFilter, ignoreCase) {
-	var fileNames = filterService.filterNotesByText(textFilter, ignoreCase);
-	return fileNames2Metadata(fileNames, config.NOTES_PATH);
-};
-
-exports.queryByRegex = function(regexFilter, ignoreCase) {
-	var fileNames = filterService.filterNotesByRegex(regexFilter, ignoreCase);
+	if (filterConfig.filter) {
+		fileNames = filterService.filterNotesByContent(fileNames, filterConfig);
+	}
 	return fileNames2Metadata(fileNames, config.NOTES_PATH);
 };
 

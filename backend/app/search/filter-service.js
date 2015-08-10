@@ -1,45 +1,29 @@
 var fs = require('fs');
 var config = require('../../config.json');
-var utils = require('../utils.js');
 var html2text = require('./html2text.js');
 
-function filterNotes(textFilterFunc) {
-	
-	return fs.readdirSync(config.NOTES_PATH)
-		.filter(function(file_name) {
-			if (!utils.endsWith(file_name, '.html')) {
-				return false;
-			} else {
-				var html = fs.readFileSync(config.NOTES_PATH + '/' + file_name, 'utf8');
-				var text = html2text(html);
-				return textFilterFunc(text);
-			}
-		});
-
-}
-
-function filterNotesByText(textFilter, ignoreCase) {
-	if (ignoreCase) {
-		textFilter = textFilter.toUpperCase();
+function filterNotesByContent(fileNames, filterConfig) {
+	if (filterConfig.isRegex) {
+		var regex = new RegExp(filterConfig.filter, 'gm' + (filterConfig.ignoreCase ? 'i' : ''));
+	} else {
+		var filter = filterConfig.ignoreCase ? filterConfig.filter.toUpperCase() : filterConfig;
 	}
 
-	return filterNotes(function(textContent) {
-		if (ignoreCase) {
-			textContent = textContent.toUpperCase();
+	return fileNames.filter(function(fileName) {
+		var html = fs.readFileSync(config.NOTES_PATH + '/' + fileName, 'utf8');
+		var text = html2text(html);
+
+		if (filterConfig.isRegex) {
+			return text.search(regex) >= 0;
+		} else {
+			if (filterConfig.ignoreCase) {
+				text = text.toUpperCase();
+			}
+			return text.indexOf(filter) >= 0;
 		}
-		return textContent.indexOf(textFilter) >= 0;
-	});
-}
-
-function filterNotesByRegex(regexFilter, ignoreCase) {
-	var regex = new RegExp(regexFilter, 'gm' + (ignoreCase ? 'i' : ''));
-
-	return filterNotes(function(textContent) {
-		return textContent.search(regex) >= 0;
 	});
 }
 
 module.exports = {
-	filterNotesByText: filterNotesByText,
-	filterNotesByRegex: filterNotesByRegex
+	filterNotesByContent: filterNotesByContent
 };

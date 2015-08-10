@@ -1,90 +1,59 @@
 $(function() {
-	var notelistPage = $("#notelist-page");
-	var previewIframe = $("#note-preview-iframe");
-	var newNoteButton = $("#new-note-button");
-	var editNoteButton = $("#edit-note-button");
-	var filterInput = $("#note-filter-input");
-	var filterCounter = $("#note-filter-counter");
-	var noteList = $("#notelist-list");
+	
+	var previewIframe = $('#note-preview-iframe');
+	var newNoteButton = $('#new-note-button');
+	var editNoteButton = $('#edit-note-button');
+	var titleFilterInput = $('#title-filter-input');
+	var contentFilterInput = $('#content-filter-input');
+	var ignoreCaseInput = $('#ignore-case-input');
+	var filterCounter = $('#note-filter-counter');
+	var noteList = $('#notelist-list');
+	var filterButton = $('#filter-search-button');
 
-	var previewContainer = $("#note-preview-container");
-	var sidebarContainer = $("#notelist-container");
-	var topbarContainer = $("#notelist-toppanel");
+	var previewContainer = $('#note-preview-container');
+	var sidebarContainer = $('#notelist-container');
+	var topbarContainer = $('#notelist-toppanel');
 
 	var notes = [];
 	var selectedNoteLi = null;
 
-	newNoteButton.click(function(event) {
+	newNoteButton.click(function() {
 		window.open('editor.html', '_blank');
 	});
 
 	editNoteButton.hide();
 	
-	editNoteButton.click(function(event) {
-		var noteName = selectedNoteLi.attr("data-note-id");
+	editNoteButton.click(function() {
+		var noteName = selectedNoteLi.attr('data-note-id');
 		var href = 'editor.html?note=' + noteName;
 		window.open(href, '_blank');
 	});
 
-	noteList.on('click', 'li', function(event) {
+	noteList.on('click', 'li', function() {
 		selectedNoteLi.removeClass('selected');
 		selectedNoteLi = $(this);
 		selectedNoteLi.addClass('selected');
 
-		var name = selectedNoteLi.attr("data-note-id");
-		if (previewIframe.attr('src') !== "notes/" + name + "/content") { // avoid unnecessary reload flickering
-			previewIframe.attr('src', "notes/" + name + "/content");
+		var name = selectedNoteLi.attr('data-note-id');
+		if (previewIframe.attr('src') !== 'notes/' + name + '/content') { // avoid unnecessary reload flickering
+			previewIframe.attr('src', 'notes/' + name + '/content');
 		}
 
 		editNoteButton.show();
 	});
 
-	var filterTimeout = null;
-
-	filterInput.on('input', function(event) {
-		var filtered = notes;
-		if ($(this).val()) {
-			var filterText = $(this).val().trim();
-
-			// filtered = notes.filter(function(note) {
-			// 	return note.name.toUpperCase().indexOf(filterText) !== -1;
-			// });
-			$.ajax({
-				url: '/notes?textFilter=' + filterText,
-				type: 'GET',
-				success: noteListLoaded,
-				error: noteListLoadError,
-				dataType: "json"
-			});
-		}
-
-		clearTimeout(filterTimeout);
-		filterTimeout = setTimeout(function() {
-			applyFilter(filtered);
-		}, 250);
-
-	});
-
-	function applyFilter(filtered) {
-
-		noteList.html('');
-		filtered.forEach(function(note) {
-			noteList.append(noteToListItem(note));
+	filterButton
+		.on('click', function(event) {
+			loadNoteList();
+			event.preventDefault();
+		}).on('keydown', function(event) {
+			if (event.keyCode === 9 && !event.shiftKey) {
+				titleFilterInput.focus();		
+				event.preventDefault();		
+			}
 		});
 
-		if (filtered.length > 0) {
-			selectedNoteLi = noteList.find('li:nth-child(1)');
-			selectedNoteLi.click();
-		} else {
-			selectedNoteLi = null;
-			editNoteButton.hide();
-			previewIframe.attr('src', "");
-		}
-
-		filterCounter.text("Notes: " + filtered.length + "/" + notes.length);
-	}
-
-	filterInput.on('keydown', function(event) {
+	titleFilterInput.on('keydown', function(event) {
 		if (event.keyCode === 40) { // down
 			if (selectedNoteLi) {
 				selectedNoteLi.next().click();
@@ -103,6 +72,10 @@ $(function() {
 			event.preventDefault();
 			return false;
 		}
+		if (event.keyCode === 9 && event.shiftKey) {
+			filterButton.focus();
+			event.preventDefault();		
+		}
 	});
 
 	$(document).keydown(function(event) {
@@ -119,6 +92,7 @@ $(function() {
 	function noteListLoaded(loaded_notes) {
 		notes = loaded_notes;
 
+		noteList.html('');
 		notes.forEach(function(note) {
 			noteList.append(noteToListItem(note));
 		});
@@ -128,24 +102,17 @@ $(function() {
 			selectedNoteLi.click();
 		} else {
 			selectedNoteLi = null;
+			editNoteButton.hide();
+			previewIframe.attr('src', '');
 		}
 
-		filterCounter.text("Notes: " + notes.length);
+		filterCounter.text('Notes: ' + loaded_notes.length);
 	}
 
 	function noteListLoadError(xhr, status, error) {
-		console.log(status + ", " + xhr);
+		console.log(status + ', ' + xhr);
 		throw error;
 	}
-
-	$.ajax({
-		url: '/notes',
-		type: 'GET',
-		success: noteListLoaded,
-		error: noteListLoadError,
-		dataType: "json"
-	});
-
 
 	function recalculateSizes() {
 		previewContainer.width(window.innerWidth - sidebarContainer.width());
@@ -154,28 +121,63 @@ $(function() {
 		sidebarContainer.height(window.innerHeight - topbarContainer.height());
 	}
 
+	function getQueryParams() {
+
+		var titleFilter = titleFilterInput.val().trim();
+		var contentFilter = contentFilterInput.val().trim();
+		var ignoreCase = ignoreCaseInput.is(':checked');
+		var regex = false; // TODO
+
+		var queryParams = {};
+		if (titleFilter) {
+			queryParams.titleFilter = titleFilter;
+		}
+		if (contentFilter) {
+			queryParams.filter = contentFilter;
+			queryParams.ignoreCase = ignoreCase;
+			queryParams.regex = regex;
+		}
+		return queryParams;
+	}
+
+	function loadNoteList() {
+		var queryParams = getQueryParams();
+		var queryString = '?' + Object.keys(queryParams).map(function(filterName) {
+			 return filterName + '=' + queryParams[filterName];
+		}).join('&');
+
+		$.ajax({
+			url: '/notes' + queryString,
+			type: 'GET',
+			success: noteListLoaded,
+			error: noteListLoadError,
+			dataType: 'json'
+		});
+	}
+
+	function noteToListItem(note) {
+		var li = '<li data-note-id="' + note.name + '">' +
+			'<span class="note-title">' + note.name + '</span>' +
+			'<span class="note-size">' + Math.floor(note.size/1024) + ' kB</span>' +
+			'<span class="note-mtime">' + formatDate(note.mtime) + '</span>' +
+			'</li>';
+		return $(li);
+	}
+
+	function formatDate(timestamp) {
+
+		function withOptionalZero(number) {
+			return number < 10 ? '0' + number : number;
+		}
+
+		var d = new Date(timestamp);
+		return d.getFullYear()  + '.' + withOptionalZero(d.getMonth() + 1) + '.' + withOptionalZero(d.getDate()) + '. ' +
+			withOptionalZero(d.getHours()) + ':' + withOptionalZero(d.getMinutes());
+	}
+
 	recalculateSizes();
 	$(window).resize(recalculateSizes);
 
-	filterInput.focus();
+	titleFilterInput.focus();
+	loadNoteList();
 });
-
-function noteToListItem(note) {
-	var li = '<li data-note-id="' + note.name + '">'
-		+ '<span class="note-title">' + note.name.replace(/_/g, ' ') + '</span>'
-		+ '<span class="note-size">' + Math.floor(note.size/1024) + ' kB</span>'
-		+ '<span class="note-mtime">' + formatDate(note.mtime) + '</span>'
-		+ '</li>'
-	return $(li);
-}
-
-function formatDate(timestamp) {
-
-	function withOptionalZero(number) {
-		return number < 10 ? '0' + number : number;
-	}
-
-	var d = new Date(timestamp);
-	return d.getFullYear()  + "." + withOptionalZero(d.getMonth() + 1) + "." + withOptionalZero(d.getDate()) + ". "
-		+ withOptionalZero(d.getHours()) + ":" + withOptionalZero(d.getMinutes());
-}

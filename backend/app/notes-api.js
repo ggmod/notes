@@ -4,12 +4,13 @@ module.exports = function (router) {
 	
 	router.route('/notes')
 		.get(function(req, res) {
-			if (req.query.textFilter) {
-				res.send(noteService.queryByText(req.query.textFilter, req.query.ignoreCase === 'true'));
-			} else if (req.query.regexFilter) {
-				res.send(noteService.queryByRegex(req.query.regexFilter, req.query.ignoreCase === 'true'));
-			} else if (req.query.titleFilter) {
-				res.send(noteService.queryByTitle(req.query.titleFilter));
+			if (req.query.filter || req.query.titleFilter) {
+				res.send(noteService.queryByFilter({
+					titleFilter: req.query.titleFilter,
+					filter: req.query.filter, 
+					isRegex: req.query.regex === 'true',
+					ignoreCase: req.query.ignoreCase === 'true'
+				}));
 			} else {
 				res.send(noteService.queryAll());
 			}

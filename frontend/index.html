@@ -5,13 +5,21 @@
     <meta charset="utf-8">
     <title>Notes</title>
     <link rel="stylesheet" type="text/css" href="css/main.css"></link>
-    <script src="js-lib/jquery-1.8.2.js"></script>
+    <script src="lib/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="js/notes.js"></script>
   </head>
   <body>
     <div id="notelist-page">
     	<div id="notelist-toppanel">
-    		<input id="note-filter-input" type="text"/>
+            <form class="filter-form">
+                <span>Title:</span>
+        		<input id="title-filter-input" type="text"/>
+                <span>Content:</span>
+                <input id="content-filter-input" type="text"/>
+                <span>Ignore case:</span>
+                <input id="ignore-case-input" type="checkbox" style="vertical-align: middle;"/>
+                <button id="filter-search-button" class="note-button">Search</button>
+            </form>
     		<span id="note-filter-counter"></span>
     		<div id="note-button-container">
 	    		<a id="new-note-button" class="note-button">New note</a>
