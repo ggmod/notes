@@ -11,7 +11,7 @@ var router = express.Router();
 
 app.set('json spaces', 4);
 
-app.use(express.static('../frontend'));
+app.use(express.static('../frontend/public'));
 
 app.use(bodyParser.text());
 
@@ -24,7 +24,7 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-	res.sendfile('../frontend/index.html');
+	res.sendfile('../frontend/public/index.html');
 });
 
 app.listen(config.PORT, function() {
