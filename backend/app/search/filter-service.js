@@ -1,6 +1,10 @@
 var fs = require('fs');
 var config = require('../../config.json');
 var html2text = require('./html2text.js');
+var osenv = require('osenv');
+
+
+var NOTES_FOLDER = osenv.home() + '/' + config.NOTES_PATH;
 
 function filterNotesByContent(fileNames, filterConfig) {
 	if (filterConfig.isRegex) {
@@ -10,7 +14,7 @@ function filterNotesByContent(fileNames, filterConfig) {
 	}
 
 	return fileNames.filter(function(fileName) {
-		var html = fs.readFileSync(config.NOTES_PATH + '/' + fileName, 'utf8');
+		var html = fs.readFileSync(NOTES_FOLDER + '/' + fileName, 'utf8');
 		var text = html2text(html);
 
 		if (filterConfig.isRegex) {
