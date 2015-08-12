@@ -30,7 +30,7 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 		
 		var insertedChar = String.fromCharCode(event.which);
 
-		if (insertedChar === '\n' || insertedChar === '\t' || insertedChar === ' ') {
+		if (event.which === 13 || insertedChar === '\n' || insertedChar === '\t' || insertedChar === ' ') {
 			lastWord = getLastTypedWord();
 			if (lastWord.length > 6 && isURL(lastWord)) {
 				var href = (lastWord.lastIndexOf('http://') === 0 || lastWord.lastIndexOf('https://') === 0) ? lastWord : 'http://' + lastWord;
@@ -88,7 +88,7 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 						selection.move(1);
 						selection.move(-1); // this is needed to put the cursor in the div inside the codeblock
 					} else {
-						codeHighlighter.refreshAll();
+						//codeHighlighter.refreshAll(); // TODO this is too dangerous, you can't undo if it fails
 					}
 				}
 				break;

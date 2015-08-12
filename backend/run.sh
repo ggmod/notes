@@ -1,0 +1,1 @@
+node server.js # or use nodemon for development

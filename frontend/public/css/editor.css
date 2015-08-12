@@ -26,8 +26,8 @@ body {
 
 #editor-overlays-cover {
 	/*border: 1px solid red;*/
-	width: 170px;
-	height: 100px;
+	width: 100px;
+	height: 50px;
 	top: 0;
 	right: 0;
 	position: fixed;
