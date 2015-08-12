@@ -5,12 +5,7 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 	var previousChar = null;
 	var lastWord = '';
 
-	var isWhitespace = function() {
-		var whitespace = new RegExp('\\s');
-		return function(char) {
-			return whitespace.test(char);
-		};
-	}();
+	var whitespace = new RegExp('\\s');
 
 	function getLastTypedWord() {
 		// if the word is divided by <span>-s for example, then text will only contain the last part, but this is not a problem for my use-cases
@@ -18,7 +13,7 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 			.substr(0, contentDocument.getSelection().anchorNode.anchorOffset);
 		var i = text.length - 1;
 		
-		while (i >= 0 && !isWhitespace(text.charAt(i))) {
+		while (i >= 0 && !whitespace.test(text.charAt(i))) {
 			i--;
 		}
 		return i === -1 ? text : text.substr(i + 1);
@@ -118,16 +113,16 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 							}
 						} else {
 							// lastWord already calculated for the URL detection
-							if (lastWord[0] === '\\' && lastWord.length > 1) {
+							if (lastWord[0] === '|' && lastWord.length > 1) {
 								selection.extend('backward', 'character', lastWord.length);
 								commands.insertCodeBlock(lastWord.substr(1));
-							} else if (shortcuts[lastWord]) {
+							} else if (lastWord[0] === '\\' && lastWord.length > 1 && shortcuts[lastWord.substr(1)]) {
 								globals.triggeredByShortcut = true;
 								globals.shortcutCallback = function() {
 									selection.extend('backward', 'character', lastWord.length);
 									commands.delete();
 								};
-								shortcuts[lastWord]();
+								shortcuts[lastWord.substr(1)]();
 							} else {
 								commands.insertTab();
 							}
@@ -157,6 +152,18 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 					return false;
 				}
 				break;
+			case 112: // F1
+				$('.editor-help').toggle();
+				event.preventDefault();
+				return false;
+		}
+
+		if (event.which >= 49 && event.which <= 54) { // numbers
+			if (event.ctrlKey && event.altKey) {
+				commands.transformToBlock('h' + parseInt(String.fromCharCode(event.which)));
+				event.preventDefault();
+				return false;
+			}
 		}
 
 		previousChar = event.which;

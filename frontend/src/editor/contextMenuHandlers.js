@@ -51,12 +51,6 @@ editor.registerContextMenu = function(content, contextMenu) {
 					content.focus();
 				}
 				break;
-			case 13: // enter
-				if (contextMenuElement.is(':visible')) {
-					contextMenuElement.hide();
-					content.focus();
-				}
-				break;
 		}
 	}
 

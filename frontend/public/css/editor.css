@@ -121,6 +121,9 @@ body {
 	background-color: white;
 	color: rgb(74, 74, 74);
 }
+.contextmenu-item option {
+	font-size: 12px;
+}
 .contextmenu-label {
 	width: 60px;
 	display: inline-block;
@@ -240,4 +243,30 @@ body {
 }
 #editor-message.info {
 	border-color: rgb(111, 200, 255);
+}
+
+.editor-help {
+    position: fixed;
+    max-width: 600px;
+    max-height: 80%;
+    background-color: rgba(0, 0, 0, 0.75);
+    font-size: 12px;
+    line-height: 1.2;
+    color: rgb(226, 226, 226);
+    padding: 10px;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0 0 7px #676767;
+    border-radius: 5px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 30px;
+    overflow: auto;
+}
+.editor-help table {
+	margin: 5px;
+}
+.editor-help-info {
+	font-size: 10.5px;
+	color: #9E9E9E;
 }

@@ -20,14 +20,14 @@
   		</div>
   		<div id="editor-contextmenu">
   			<div class="contextmenu-item">
-  				<span class="contextmenu-label">Font size: </span><select id="font-size-input" class="contextmenu-focus"></select>
-  			</div>
-  			<div class="contextmenu-item">
-  				<span class="contextmenu-label">Heading: </span><select id="heading-input" class="contextmenu-focus"></select>
-  			</div>
-  			<div class="contextmenu-item">
   				<span class="contextmenu-label">Color: </span><select id="color-input" class="contextmenu-focus"></select>
   			</div>
+        <div class="contextmenu-item">
+          <span class="contextmenu-label">Font size: </span><select id="font-size-input" class="contextmenu-focus"></select>
+        </div>
+        <div class="contextmenu-item">
+          <span class="contextmenu-label">Heading: </span><select id="heading-input" class="contextmenu-focus"></select>
+        </div>
   			<div class="contextmenu-item">
   				<span class="contextmenu-label">Highlight: </span><select id="highlight-input" class="contextmenu-focus"></select>
   			</div>
@@ -91,6 +91,32 @@
   				</div>
   			</div>
   		</div>
+      <div class="editor-help">
+        <h3 style="margin-top: 2px">Keyboard shortcuts</h3>
+        <div>
+          <table>
+            <tr><td>F1</td><td>help</td></tr>
+            <tr><td>ctrl + s</td><td>Save</td></tr>
+            <tr><td>ctrl + e</td><td>Edit mode on/off</td></tr>
+            <tr><td>ctrl + d</td><td>Delete line (or pharagraph)</td></tr>
+            <tr><td>ctrl + q</td><td>Format current code block</td></tr>
+            <tr><td>ctrl + alt + [number]</td><td>Heading 1-6</td></tr>
+          </table>
+          <div class="editor-help-info">All the browser shortcuts work, e.g. ctrl + b for bold (selection or state), and (shift +) tab can be used to (un)indent lists</div>
+        </div>
+        <h3>Commands</h3>
+        <div>
+          <table>
+            <tr><td>img</td><td>Insert image</td></tr>
+            <tr><td>table</td><td>Insert table</td></tr>
+            <tr><td>ul</td><td>Insert unordered list</td></tr>
+            <tr><td>ol</td><td>Insert ordered list</td></tr>
+            <tr><td>h[number]</td><td>Insert header</td></tr>
+          </table>
+          <div class="editor-help-info">Commands work by typing "\command + TAB".</div>
+          <div class="editor-help-info">Code block are created by "|language + TAB". The language name should be a class recognized by highlight.js</div>
+        </div>
+      </div>
   	</div>
   	<div id="main-content">
   		<iframe id="main-content-iframe"></iframe>
