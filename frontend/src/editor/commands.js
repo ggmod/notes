@@ -1,4 +1,4 @@
-editor.buildCommands = function(documentElement) {
+editor.buildCommands = function(documentElement, selection) {
 
 	var imgAlignStyle = {
 		left: 'float: left;',
@@ -45,6 +45,14 @@ editor.buildCommands = function(documentElement) {
 		return table;
 	}
 
+	function getCurrentBlock() {
+		var block = documentElement.getSelection().anchorNode;
+		while (!(block.style && window.getComputedStyle(block).display === 'block')) {
+			block = block.parentNode;
+		}
+		return block;
+	}
+
 	return {
 		// inserts:
 
@@ -82,6 +90,15 @@ editor.buildCommands = function(documentElement) {
 		},
 		insertText: function(text) {
 			documentElement.execCommand('insertText', false, text);
+		},
+
+		// delete:
+		removeCurrentBlock: function() { // current line or pharagraph
+			var block = getCurrentBlock();
+			selection.selectElement(block);
+			documentElement.execCommand('delete', false, null);
+			 // delete only removes the innerHTML and then inserts a <br>. Seriously
+			documentElement.execCommand('forwardDelete', false, null);
 		},
 
 		// other:

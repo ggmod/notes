@@ -150,6 +150,13 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 					dashCounter = 1;
 				}
 				break;
+			case 68: // d
+				if (event.ctrlKey && contentDocument.getSelection().isCollapsed) {
+					commands.removeCurrentBlock();
+					event.preventDefault();
+					return false;
+				}
+				break;
 		}
 
 		previousChar = event.which;

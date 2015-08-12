@@ -16,6 +16,13 @@ editor.buildSelection = function(documentElement) {
 		},
 		collapseToEnd: function() {
 			documentElement.getSelection().collapseToEnd();
+		},
+		selectElement: function(element) {
+			var range = documentElement.createRange();
+			range.selectNodeContents(element);
+			var sel = documentElement.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(range);
 		}
 	};
 };

@@ -24,8 +24,8 @@ editor.globals = {
 editor.init = function() {
 	
 	editor.infobox = editor.buildInfobox();
-	editor.commands = editor.buildCommands(editor.contentDocument);
 	editor.selection = editor.buildSelection(editor.contentDocument);
+	editor.commands = editor.buildCommands(editor.contentDocument, editor.selection);
 	editor.noteConverter = editor.buildNoteConverter(editor.contentDocument);
 	editor.remoteNote = editor.buildRemoteNote(editor.contentDocument, editor.editedNoteName, editor.noteConverter);
 	editor.codeHighlighter = editor.buildCodeHighlighter(editor.contentDocument, editor.content);
@@ -37,7 +37,7 @@ editor.init = function() {
 	editor.service = editor.buildEditorService(editor.contentDocument, editor.content, editor.remoteNote, editor.infobox, editor.components);
 	var dialogTypes = editor.buildDialogTypes(editor.contentDocument, editor.commands, editor.infobox, editor.service);
 	editor.components.dialogs = editor.buildDialogs(dialogTypes, editor.globals, editor.content);
-	editor.components.menu = editor.buildMenu(editor.content, editor.editedNoteName, editor.dialogs, editor.service);
+	editor.components.menu = editor.buildMenu(editor.content, editor.editedNoteName, editor.service, editor.components);
 	
 	editor.shortcuts = editor.buildShortcuts(editor.content, editor.globals, editor.commands, editor.components);
 	editor.buildContentKeyHandler(editor.contentDocument, editor.content, editor.globals, editor.commands, editor.selection, 
