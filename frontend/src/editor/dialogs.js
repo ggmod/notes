@@ -49,7 +49,7 @@ editor.buildDialogs = function(dialogTypes, globals, content) {
 				if (!event.shiftKey && dialogCancel.is(':focus')) {
 					dialogTypes[currentType].initialFocus.focus();
 					return false;
-				} else if (event.shiftKey && dialogTypes[currentType].initialFocus.is(':focus'))  {
+				} else if (event.shiftKey && $(dialogTypes[currentType].initialFocus).is(':focus'))  {
 					dialogCancel.focus();
 					return false;
 				}

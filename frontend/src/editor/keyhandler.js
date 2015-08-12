@@ -153,7 +153,7 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 				}
 				break;
 			case 112: // F1
-				$('.editor-help').toggle();
+				components.menu.helpButton.triggerHandler('click');
 				event.preventDefault();
 				return false;
 		}

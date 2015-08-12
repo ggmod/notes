@@ -35,7 +35,7 @@ editor.init = function() {
 	
 	editor.components = {};
 	editor.service = editor.buildEditorService(editor.contentDocument, editor.content, editor.remoteNote, editor.infobox, editor.components);
-	var dialogTypes = editor.buildDialogTypes(editor.contentDocument, editor.commands, editor.infobox, editor.service);
+	var dialogTypes = editor.buildDialogTypes(editor.contentDocument, editor.editedNoteName, editor.commands, editor.infobox, editor.service);
 	editor.components.dialogs = editor.buildDialogs(dialogTypes, editor.globals, editor.content);
 	editor.components.menu = editor.buildMenu(editor.content, editor.editedNoteName, editor.service, editor.components);
 	

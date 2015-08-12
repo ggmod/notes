@@ -2,7 +2,7 @@ editor.buildMenu = function(content, editedNoteName, editorService, components) 
 
 	var editableToggle = $('#editable-toggle');
 	var saveButton = $('#save-button');
-
+	var helpButton = $('#help-button');
 
 	editableToggle.click(function() {
 		if (content.attr('contenteditable') === 'true') {
@@ -25,7 +25,12 @@ editor.buildMenu = function(content, editedNoteName, editorService, components) 
 		}
 	});
 
+	helpButton.click(function() {
+		$('.editor-help').toggle();
+	});
+
 	return {
+		helpButton: helpButton,
 		editableToggle: editableToggle,
 		saveButton: saveButton
 	};
