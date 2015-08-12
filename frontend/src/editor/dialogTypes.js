@@ -1,4 +1,4 @@
-editor.buildDialogTypes = function (contentDocument, editedNoteName, commands, infobox, editorService) {
+editor.buildDialogTypes = function (contentDocument, editedNote, commands, infobox, editorService, remoteNote, components) {
 	
 	var imageDialog = $('#editor-dialog-image');
 	var tableDialog = $('#editor-dialog-table');
@@ -33,13 +33,18 @@ editor.buildDialogTypes = function (contentDocument, editedNoteName, commands, i
 			submit: function() {
 				if (!titleInput.val() || titleInput.val().trim().length === 1) {
 					infobox.error('The name of the note cannot be empty.');
-					return false;
 				} else {
-					editor.editedNoteName = titleInput.val();
-					contentDocument.title = editedNoteName;
-					editorService.saveNote();
-					return true;
+					editedNote.name = titleInput.val();
+					contentDocument.title = editedNote.name;
+					remoteNote.getMetadata(editedNote.name, function() {
+						infobox.error('A note already exists with this name!');
+					}, function() {
+						// TODO use 404 error code here
+						editorService.saveNote();
+						components.dialogs.close();
+					});
 				}
+				return false;
 			}
 		}
 	};

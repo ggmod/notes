@@ -14,7 +14,9 @@ editor.utils = {
 
 editor.contentDocument = null;
 editor.content = null; // body
-editor.editedNoteName = editor.utils.getQueryParams().note;
+editor.editedNote = {
+	name: editor.utils.getQueryParams().note
+};
 
 editor.globals = {
 	triggeredByShortcut: false,
@@ -27,7 +29,7 @@ editor.init = function() {
 	editor.selection = editor.buildSelection(editor.contentDocument);
 	editor.commands = editor.buildCommands(editor.contentDocument, editor.selection);
 	editor.noteConverter = editor.buildNoteConverter(editor.contentDocument);
-	editor.remoteNote = editor.buildRemoteNote(editor.contentDocument, editor.editedNoteName, editor.noteConverter);
+	editor.remoteNote = editor.buildRemoteNote(editor.contentDocument, editor.editedNote, editor.noteConverter);
 	editor.codeHighlighter = editor.buildCodeHighlighter(editor.contentDocument, editor.content);
 
 	editor.contextMenu = editor.buildContextMenu(editor.contentDocument, editor.content, editor.commands);
@@ -35,9 +37,10 @@ editor.init = function() {
 	
 	editor.components = {};
 	editor.service = editor.buildEditorService(editor.contentDocument, editor.content, editor.remoteNote, editor.infobox, editor.components);
-	var dialogTypes = editor.buildDialogTypes(editor.contentDocument, editor.editedNoteName, editor.commands, editor.infobox, editor.service);
+	var dialogTypes = editor.buildDialogTypes(editor.contentDocument, editor.editedNote, editor.commands, editor.infobox, editor.service, 
+		editor.remoteNote, editor.components);
 	editor.components.dialogs = editor.buildDialogs(dialogTypes, editor.globals, editor.content);
-	editor.components.menu = editor.buildMenu(editor.content, editor.editedNoteName, editor.service, editor.components);
+	editor.components.menu = editor.buildMenu(editor.content, editor.editedNote, editor.service, editor.components);
 	
 	editor.shortcuts = editor.buildShortcuts(editor.content, editor.globals, editor.commands, editor.components);
 	editor.buildContentKeyHandler(editor.contentDocument, editor.content, editor.globals, editor.commands, editor.selection, 
@@ -47,8 +50,8 @@ editor.init = function() {
 };
 
 $(function() {
-	if (editor.editedNoteName) {
-		$('#main-content-iframe').attr('src', 'notes/' + editor.editedNoteName + '/content').load(function() {
+	if (editor.editedNote.name) {
+		$('#main-content-iframe').attr('src', 'notes/' + editor.editedNote.name + '/content').load(function() {
 			editor.contentDocument = $('#main-content-iframe')[0].contentDocument;
 			editor.content = $(editor.contentDocument.body);
 			editor.init();

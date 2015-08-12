@@ -82,6 +82,8 @@ $(function() {
 		if (event.keyCode === 69 && event.ctrlKey) { // ctrl + e
 			if (editNoteButton.is(':visible')) {
 				editNoteButton.click();
+				event.preventDefault();
+				return false;
 			}
 		}
 		if (event.keyCode === 81 && event.ctrlKey) { // ctrl + q

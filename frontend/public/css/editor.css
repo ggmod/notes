@@ -50,7 +50,7 @@ body {
 	border-radius: 4px;
 }
 #help-button {
-    right: 15px;
+    right: 5px;
     text-align: center;
     text-align: center;
     font-size: 20px;
@@ -59,7 +59,7 @@ body {
     -webkit-user-select: none;
 }
 #editable-toggle {
-	right: 47px;
+	right: 37px;
 	background-image: url("../img/edit-icon.png");
 }
 #editable-toggle:hover {
@@ -72,41 +72,11 @@ body {
 	opacity: 1;
 }
 #save-button {
-	right: 79px;
+	right: 69px;
 	background-image: url("../img/save-icon.png");
 }
 #save-button:hover {
 	background-color: white;
-}
-.insert-button {
-	position: fixed;
-	background-color: rgb(240, 240, 240);
-	width: 25px;
-	height: 25px;
-	cursor: pointer;
-	box-shadow: 0 0 5px rgba(0,0,0,0.5);
-	border-radius: 4px;
-	top: 40px;
-	background-size: 25px 25px;	
-}
-.insert-button:hover {
-	background-color: white;
-}
-#insert-image {
-	right: 116px;
-	background-image: url("../img/insert-image.png");
-}
-#insert-table {
-	right: 84px;
-	background-image: url("../img/insert-table.png");	
-}
-#insert-list1 {
-	right: 52px;
-	background-image: url("../img/insert-list1.gif");	
-}
-#insert-list2 {
-	right: 20px;
-	background-image: url("../img/insert-list2.gif");	
 }
 
 /* context menu */

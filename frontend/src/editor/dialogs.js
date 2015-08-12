@@ -91,5 +91,6 @@ editor.buildDialogs = function(dialogTypes, globals, content) {
 			dialogContainer.fadeIn(200);
 			dialogTypes[currentType].initialFocus.focus();
 		},
+		close: closeDialog
 	};
 };

@@ -1,4 +1,4 @@
-editor.buildRemoteNote = function(contentDocument, editedNoteName, noteConverter) {
+editor.buildRemoteNote = function(contentDocument, editedNote, noteConverter) {
 	
 	return {
 		save: function(successCallback, errorCallback) {
@@ -7,7 +7,7 @@ editor.buildRemoteNote = function(contentDocument, editedNoteName, noteConverter
 
 			$.ajax({
 				type: 'PUT',
-				url: '/notes/' + editedNoteName + '/content',
+				url: '/notes/' + editedNote.name + '/content',
 				data: data,
 				success: successCallback,
 				error: function (xhr, status, error) {
@@ -17,6 +17,11 @@ editor.buildRemoteNote = function(contentDocument, editedNoteName, noteConverter
 				},
 				contentType: 'text/plain; charset=UTF-8'
 			});
+		},
+		getMetadata: function(name, successCallback, errorCallback) {
+			$.get('/notes/' + name)
+				.done(successCallback)
+				.fail(errorCallback);
 		}
 	};
 };

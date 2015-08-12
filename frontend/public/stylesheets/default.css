@@ -23,6 +23,7 @@ table {
 	font-size: 12px;
 	font-family: sans-serif;
 	color: #3D3D3D;
+    table-layout: fixed;
 }
 td, th {
 	border: 1px solid #ddd;

@@ -1,4 +1,4 @@
-editor.buildMenu = function(content, editedNoteName, editorService, components) {
+editor.buildMenu = function(content, editedNote, editorService, components) {
 
 	var editableToggle = $('#editable-toggle');
 	var saveButton = $('#save-button');
@@ -18,7 +18,7 @@ editor.buildMenu = function(content, editedNoteName, editorService, components) 
 	});
 
 	saveButton.click(function() {
-		if (editedNoteName) {
+		if (editedNote.name) {
 			editorService.saveNote();
 		} else {
 			components.dialogs.open('title');

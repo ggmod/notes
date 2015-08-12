@@ -45,6 +45,7 @@ body {
 	padding: 4px;
 	cursor: pointer;
 	border-bottom: 1px solid rgb(210, 210, 210);
+	color: #545454;
 }
 #notelist-list li.selected,
 #notelist-list li:hover {
@@ -77,17 +78,15 @@ iframe {
 	background-color: rgb(252, 252, 252);
 }
 .note-size {
-	font-size: 10px;
-	font-weight: bold;
+	font-size: 11px;
 	color: rgb(137, 137, 137);
 	float: right;
 }
 .note-mtime {
-	font-weight: bold;
-	font-size: 10px;
-	color: rgb(78, 161, 255);
-	padding: 0 5px;
-	float: right;
+	font-size: 11px;
+    color: rgb(169, 169, 169);
+    display: block;
+    margin-top: 3px;
 }
 
 .filter-form {

@@ -156,9 +156,21 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 				components.menu.helpButton.triggerHandler('click');
 				event.preventDefault();
 				return false;
+			case 38: // up
+				if (moveTableCursorVertically(true)) {
+					event.preventDefault();
+					return false;
+				}
+				break;
+			case 40: // down
+				if (moveTableCursorVertically(false)) {
+					event.preventDefault();
+					return false;
+				}
+				break;
 		}
 
-		if (event.which >= 49 && event.which <= 54) { // numbers
+		if (event.which >= 49 && event.which <= 54) { // numbers 1-6
 			if (event.ctrlKey && event.altKey) {
 				commands.transformToBlock('h' + parseInt(String.fromCharCode(event.which)));
 				event.preventDefault();
@@ -167,6 +179,45 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 		}
 
 		previousChar = event.which;
+	}
+
+	function moveTableCursorVertically(up) {
+		if (!contextMenu.element.is(':visible')) {
+			var parent = contentDocument.getSelection().anchorNode;
+			while (!parent.style) { // TODO instanceof Element didn't work
+				parent = parent.parentElement;
+			}
+			if (parent.tagName === 'TD') {
+				var cell = parent;
+				var row = cell;
+				while (row.tagName !== 'TR') {
+					row = row.parentElement;
+				}
+				var table = row;
+				while (table.tagName !== 'TBODY') {
+					table = table.parentElement;
+				}
+				var rowIndex = $(row).index();
+				var columnIndex = $(cell).index();
+				var rows = $(table).children('tr');
+				var columnCount = $(row).children('td').length;
+				if (up && rowIndex > 0 || !up && rowIndex < rows.length - 1) {
+					
+					// FIXME this is unbelievable, but sometimes by selecting a td the selection jumps to the previous td instead
+					// if (columnIndex === columnCount - 1) {
+					// 	columnIndex = 0;
+					// 	rowIndex = rowIndex + 1;
+					// } else {
+					// 	columnIndex = columnIndex + 1;
+					// }
+
+					var targetRow = rows[rowIndex + (up ? -1 : 1)];
+					var targetCell = $(targetRow).children('td')[columnIndex];
+					selection.moveToElement(targetCell);
+					return true;
+				}
+			}
+		}
 	}
 
 	content.keydown(contentKeydownHandler);

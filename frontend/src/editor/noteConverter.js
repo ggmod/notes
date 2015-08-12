@@ -3,7 +3,7 @@ editor.buildNoteConverter = function(contentDocument) {
 	function getHtmlContent() {
 		var originalEditable = contentDocument.body.getAttribute('contenteditable');
 		contentDocument.body.setAttribute('contenteditable', 'false');
-		var data = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML; // FIXME
+		var data = '<!DOCTYPE html>' + contentDocument.documentElement.outerHTML;
 		contentDocument.body.setAttribute('contenteditable', originalEditable);
 		return data;
 	}
