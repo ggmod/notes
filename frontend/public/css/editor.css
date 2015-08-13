@@ -27,7 +27,7 @@ body {
 #editor-overlays-cover {
 	/*border: 1px solid red;*/
 	width: 100px;
-	height: 50px;
+	height: 50px;Radoop
 	top: 0;
 	right: 0;
 	position: fixed;
@@ -50,7 +50,7 @@ body {
 	border-radius: 4px;
 }
 #help-button {
-    right: 5px;
+    right: 17px;
     text-align: center;
     text-align: center;
     font-size: 20px;
@@ -59,7 +59,7 @@ body {
     -webkit-user-select: none;
 }
 #editable-toggle {
-	right: 37px;
+	right: 49px;
 	background-image: url("../img/edit-icon.png");
 }
 #editable-toggle:hover {
@@ -72,7 +72,7 @@ body {
 	opacity: 1;
 }
 #save-button {
-	right: 69px;
+	right: 81px;
 	background-image: url("../img/save-icon.png");
 }
 #save-button:hover {

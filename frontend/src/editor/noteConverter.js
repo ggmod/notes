@@ -12,8 +12,11 @@ editor.buildNoteConverter = function(contentDocument) {
 		var meta1 = contentDocument.createElement('meta');
 		meta1.setAttribute('name', 'viewport');
 		meta1.setAttribute('content', 'initial-scale=1.0, user-scalable=no');
+		contentDocument.head.appendChild(meta1);
+		
 		var meta2 = contentDocument.createElement('meta');
 		meta2.setAttribute('charset', 'utf-8');
+		contentDocument.head.appendChild(meta2);
 
     	var faviconLink = contentDocument.createElement('link');
     	faviconLink.setAttribute('rel', 'shortcut icon');
