@@ -5,7 +5,7 @@ $(function() {
 	var editNoteButton = $('#edit-note-button');
 	var titleFilterInput = $('#title-filter-input');
 	var contentFilterInput = $('#content-filter-input');
-	var ignoreCaseInput = $('#ignore-case-input');
+	var matchCaseInput = $('#match-case-input');
 	var filterCounter = $('#note-filter-counter');
 	var noteList = $('#notelist-list');
 	var filterButton = $('#filter-search-button');
@@ -127,8 +127,8 @@ $(function() {
 
 		var titleFilter = titleFilterInput.val().trim();
 		var contentFilter = contentFilterInput.val().trim();
-		var ignoreCase = ignoreCaseInput.is(':checked');
-		var regex = false; // TODO
+		var ignoreCase = !matchCaseInput.is(':checked');
+		var regex = false; // TODO use regex (backend already supports it)
 
 		var queryParams = {};
 		if (titleFilter) {

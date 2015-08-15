@@ -10,9 +10,9 @@ function filterNotesByContent(fileNames, filterConfig) {
 	if (filterConfig.isRegex) {
 		var regex = new RegExp(filterConfig.filter, 'gm' + (filterConfig.ignoreCase ? 'i' : ''));
 	} else {
-		var filter = filterConfig.ignoreCase ? filterConfig.filter.toUpperCase() : filterConfig;
+		var filter = filterConfig.ignoreCase ? filterConfig.filter.toUpperCase() : filterConfig.filter;
 	}
-
+	
 	return fileNames.filter(function(fileName) {
 		var html = fs.readFileSync(NOTES_FOLDER + '/' + fileName, 'utf8');
 		var text = html2text(html);
@@ -23,6 +23,7 @@ function filterNotesByContent(fileNames, filterConfig) {
 			if (filterConfig.ignoreCase) {
 				text = text.toUpperCase();
 			}
+
 			return text.indexOf(filter) >= 0;
 		}
 	});
