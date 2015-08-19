@@ -32,6 +32,13 @@ editor.buildSelection = function(documentElement) {
 			sel.removeAllRanges();
 			sel.addRange(range);
 			sel.collapseToEnd();
+		},
+		getWordBeforeCursor: function() {
+			var range = documentElement.getSelection().getRangeAt(0);
+			if (range.collapsed) {
+				var text = range.startContainer.textContent.substring(0, range.startOffset);
+				return text.split(/\s/g).pop(); // not technically a word, currently only used for url detection
+			}
 		}
 	};
 };

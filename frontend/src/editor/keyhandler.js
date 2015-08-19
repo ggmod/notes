@@ -5,20 +5,6 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 	var previousChar = null;
 	var lastWord = '';
 
-	var whitespace = new RegExp('\\s');
-
-	function getLastTypedWord() {
-		// if the word is divided by <span>-s for example, then text will only contain the last part, but this is not a problem for my use-cases
-		var text = contentDocument.getSelection().anchorNode.textContent
-			.substr(0, contentDocument.getSelection().anchorNode.anchorOffset);
-		var i = text.length - 1;
-		
-		while (i >= 0 && !whitespace.test(text.charAt(i))) {
-			i--;
-		}
-		return i === -1 ? text : text.substr(i + 1);
-	}
-
 	var linkCreatedByTyping = false;
 
 	function contentKeydownHandler(event) {
@@ -26,8 +12,8 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 		var insertedChar = String.fromCharCode(event.which);
 
 		if (event.which === 13 || insertedChar === '\n' || insertedChar === '\t' || insertedChar === ' ') {
-			lastWord = getLastTypedWord();
-			if (lastWord.length > 6 && isURL(lastWord)) {
+			lastWord = selection.getWordBeforeCursor();
+			if (lastWord !== undefined && lastWord.length > 6 && isURL(lastWord)) {
 				var href = (lastWord.lastIndexOf('http://') === 0 || lastWord.lastIndexOf('https://') === 0) ? lastWord : 'http://' + lastWord;
 				/*
 				 * I want it to work like in Word, where ctr + z removes the link but keeps the last whitespace the user typed. 
@@ -200,7 +186,7 @@ editor.buildContentKeyHandler = function(contentDocument, content, globals, comm
 				var rowIndex = $(row).index();
 				var columnIndex = $(cell).index();
 				var rows = $(table).children('tr');
-				var columnCount = $(row).children('td').length;
+				//var columnCount = $(row).children('td').length;
 				if (up && rowIndex > 0 || !up && rowIndex < rows.length - 1) {
 					
 					// FIXME this is unbelievable, but sometimes by selecting a td the selection jumps to the previous td instead
