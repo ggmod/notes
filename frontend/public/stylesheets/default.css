@@ -42,3 +42,6 @@ a {
 ul, ol {
 	padding-left: 20px;
 }
+.hljs {
+	font-size: 11.5px;
+}

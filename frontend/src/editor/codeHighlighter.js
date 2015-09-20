@@ -31,12 +31,21 @@ editor.buildCodeHighlighter = function(contentDocument, content) {
 		});
 	}
 
+	var xmlEscape = {
+		'<': '&lt;',
+		'>': '&gt;',
+		'&': '&amp;'
+	};
+
 	function refreshCodeHighlighting(block) {
 		/* I put everything in a div, so that when an enter is pressed it's not the <code> tag 
 		 that the browser splits, but the div inside it. I also throw away all the existing style 
 		 when reappling the coloring, otherwise it would get hopelessly complicated. */
 		var codeText = block.innerText;
 		codeText = removeUnnecessaryTabs(codeText);
+		codeText = codeText.replace(/(<)|(>)|(&)/g, function(match) {
+			return xmlEscape[match];
+		});
 		var container = contentDocument.createElement('div');
 		container.setAttribute('class', 'code-edit-linebreak');
 		container.innerHTML = codeText;

@@ -217,7 +217,7 @@ body {
 	border-color: red;
 }
 #editor-message.info {
-	border-color: rgb(111, 200, 255);
+	border-color: rgb(111, 255, 111);
 }
 
 .editor-help {

@@ -4,6 +4,9 @@ var config = require('./config.json');
 var bodyParser = require('body-parser');
 var cronJobs = require('./app/cron-jobs.js');
 
+
+process.title = 'notes-app'; // so that ps shows more than "node server.js"
+
 cronJobs.start();
 
 var app = express();
